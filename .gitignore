@@ -2,6 +2,10 @@
 /public/hot
 /public/images/people
 /public/storage
+/public/css
+/public/js
+/public/mix-manifest.json
+/public/mix.js.map
 /storage/*.key
 /vendor
 .env

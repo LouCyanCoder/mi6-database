@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mix = require('laravel-mix');
 
 /*
@@ -6,12 +7,39 @@ const mix = require('laravel-mix');
  |--------------------------------------------------------------------------
  |
  | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
+ | for your Laravel application. By default, we are compiling the Sass
  | file for the application as well as bundling up all the JS files.
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+if (!mix.inProduction()) {
+    // development settings:
+    //     add source maps
+    mix.webpackConfig({
+        devtool: 'source-map'
+    })
+    .sourceMaps()
+}
+
+mix
+    // don't rewrite URLs in CSS files
+    .options({
+        processCssUrls: false
+    })
+
+    // open and serve with browsersync
+    .browserSync({
+        host: 'localhost',
+        port: 3000,
+        proxy: {
+            target: process.env.APP_URL // don't forget to set APP_URL in .env
+        }
+    })
+
+    // add versioning
+    .version();
+
+// ADD ASSETS TO COMPILE HERE:
+
+// Examples:
+mix.js('resources/js/people-of-interest.js', 'public/js').react();
