@@ -11,6 +11,9 @@ export default function PeopleList({ search_term, selected_status }) {
 
         // make a fetch request onto that URL
         const response = await fetch(url);
+        if (Math.floor(response.status / 100) !== 2) { // response code is something else than 2xx
+            alert('Communication problem, please try again.');
+        }
 
         // parse the response as JSON
         const data = await response.json();
