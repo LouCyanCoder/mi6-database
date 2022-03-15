@@ -1,4 +1,3 @@
-require('dotenv').config();
 const mix = require('laravel-mix');
 
 /*
@@ -12,34 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
-if (!mix.inProduction()) {
-    // development settings:
-    //     add source maps
-    mix.webpackConfig({
-        devtool: 'source-map'
-    })
-    .sourceMaps()
-}
+// mix.js('resources/js/app.js', 'public/js')
+//     .react()
+//     .sass('resources/sass/app.scss', 'public/css');
 
-mix
-    // don't rewrite URLs in CSS files
-    .options({
-        processCssUrls: false
-    })
-
-    // open and serve with browsersync
-    .browserSync({
-        host: 'localhost',
-        port: 3000,
-        proxy: {
-            target: process.env.APP_URL // don't forget to set APP_URL in .env
-        }
-    })
-
-    // add versioning
-    .version();
-
-// ADD ASSETS TO COMPILE HERE:
-
-// Examples:
-mix.js('resources/js/people-of-interest.js', 'public/js').react();
+    mix.js('resources/js/people-of-interest.js', 'public/js').react();
