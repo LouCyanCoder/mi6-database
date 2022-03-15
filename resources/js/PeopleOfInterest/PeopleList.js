@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-export default function PeopleList({ search_term }) {
+export default function PeopleList({ search_term, selected_status }) {
 
     const [data, setData] = useState([]);
 
     const loadData = async () => {
         // prepare the URL
-        const url = '/api/request?search=' + encodeURIComponent(search_term);
+        //           /api/request?search=james&status=1
+        const url = '/api/request?search=' + encodeURIComponent(search_term) + '&status=' + encodeURIComponent(selected_status);
 
         // make a fetch request onto that URL
         const response = await fetch(url);
@@ -22,7 +23,7 @@ export default function PeopleList({ search_term }) {
 
         loadData();
 
-    }, [search_term]);
+    }, [search_term, selected_status]);
 
     return (
         <div className="people-of-interest__list">
