@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
 const MissionEditForm = () => {
 
@@ -18,24 +19,47 @@ const MissionEditForm = () => {
                     }
                 );
             }
-        );
-    }
+            );
+        }
+        
+    const handleSubmit = async event => {
+        event.preventDefault();
+        
+        const meta_tag = document.querySelector('meta[name="csrf-token');
+        const csrf_value = meta_tag.getAttribute('content');
 
+        // fetch
+        const response = await fetch('/api/missions', {
+            method: 'post',
+            body: JSON.stringify(values),
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': csrf_value
+            }
+        })
 
-
-    const years = [];
-    for (let year = 1900; year <= 2030; year++){
-        years.push(year);
-    }
-
-  return (
-    <div>
+        // axios
+        const axios_response = await axios.post('api/missions', values);
+}
+        
+        
+        
+        const years = [];
+        for (let year = 1900; year <= 2030; year++){
+            years.push(year);
+        }
+        
+    console.log(values);
+    
+        return (
+            <div>
           <h1>This is the mission edit form.</h1>
             
           <form
             className='edit-mission'
               action=""
               method="post"
+              onSubmit={ handleSubmit }
           >
 
                 <div className='form-group'>
@@ -46,8 +70,8 @@ const MissionEditForm = () => {
                       name="name"
                       value={ values.name }
                       onChange= { handleChange }
+                      />
 
-                  />
                 </div>
 
                 <div className='form-group'>

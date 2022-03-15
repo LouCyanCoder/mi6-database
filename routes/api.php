@@ -23,3 +23,6 @@ Route::get('request', 'Api\PeopleController@index');
 
 //     /api/statuses
 Route::get('statuses', 'Api\StatusController@index');
+
+//     /api/missions
+Route::post('missions', 'Api\MissionController@store');
