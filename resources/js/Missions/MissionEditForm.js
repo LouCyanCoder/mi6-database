@@ -34,6 +34,7 @@ const MissionEditForm = () => {
             body: JSON.stringify(values),
             headers: {
                 'Accept': 'application/json',
+                'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': csrf_value
             }
         })
